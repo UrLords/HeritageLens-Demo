@@ -1,0 +1,33 @@
+{
+  "id": "object-05",
+  "name": "Arca Mpu Baradah",
+  "category": "Sacred Stone Statue",
+  "sam3_prompt": "Balinese carved stone statue of a sacred figure",
+  "description": "A sacred image cared for by the community of Pura Ntegana in Darmasaba, Badung. Local belief connects the arca with prayers for safety and taksu — a spiritual quality sought by those called to serve as pemangku.",
+  "history": "The statue belongs to the living setting of Pura Ntegana. Some accounts date it to 908 CE and connect it with the Purusada period; the date is presented here as a recorded tradition, rather than a settled fact.",
+  "cultural_meaning": "The arca is more than a carved figure. For people who come to pray, it is a focus for seeking safety, spiritual strength and guidance in service to the community.",
+  "location": "Pura Ntegana, Jl. Tanah Putih, Darmasaba, Kecamatan Abiansemal, Kabupaten Badung, Bali, Indonesia",
+  "material": "Paras stone",
+  "model": {
+    "provider": "Sketchfab",
+    "creator": "nusaheritage.id",
+    "url": "https://sketchfab.com/3d-models/arca-mpu-baradah-6cf44bc948484bab92c9147a141494ec",
+    "license": "Check current Sketchfab model page before redistribution",
+    "license_url": "https://sketchfab.com/3d-models/arca-mpu-baradah-6cf44bc948484bab92c9147a141494ec",
+    "local_url": "/models/object-05.glb"
+  },
+  "sources": [
+    {
+      "title": "Arca Mpu Baradah - Nusa Heritage ID",
+      "url": "https://nusaheritage.id/objekmetadata/warisanberwujud/pura-ntegana/arca-mpu-baradah"
+    },
+    {
+      "title": "Sejarah Pura Ntegana - Nusa Heritage ID",
+      "url": "https://purantegana.nusaheritage.id/sejarah/"
+    },
+    {
+      "title": "Arca Mpu Baradah - Sketchfab / nusaheritage.id",
+      "url": "https://sketchfab.com/3d-models/arca-mpu-baradah-6cf44bc948484bab92c9147a141494ec"
+    }
+  ]
+}

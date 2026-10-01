@@ -1,0 +1,33 @@
+{
+  "id": "object-01",
+  "name": "Penyungsungan Betara Ngerurah",
+  "category": "Sacred Shrine / Pelinggih",
+  "sam3_prompt": "low Balinese brick shrine without a roof",
+  "description": "A roofless brick shrine within the Pura Lingsar complex. It is dedicated to Ratu Ngurah, honored here as Betara Ngerurah.",
+  "history": "Pura Lingsar is a shared sacred landscape in Lombok, used by Hindu and Sasak Muslim communities. The shrine is recorded as a place of worship and as the abode of Ratu Ngurah.",
+  "cultural_meaning": "Its purpose is expressed through devotion and care. A simple brick form becomes a place of presence within a living sacred complex.",
+  "location": "Pura Lingsar, Kabupaten Lombok Barat, Nusa Tenggara Barat, Indonesia",
+  "material": "Brick",
+  "model": {
+    "provider": "Sketchfab",
+    "creator": "nusaheritage.id",
+    "url": "https://sketchfab.com/3d-models/penyungsungan-betara-ngerurah-545b632a40d24f58890ac6d4137f44d5",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "local_url": "/models/object-01.glb"
+  },
+  "sources": [
+    {
+      "title": "Studi Teknis Arkeologi Saluran Air Kelebutan Situs Pura/Kemaliq Taman Lingsar - Balai Pelestarian Cagar Budaya Bali",
+      "url": "https://kebudayaan.kemdikbud.go.id/bpcbbali/studi-teknis-arkeologi-saluran-air-kelebutan-situs-pura-kemaliq-taman-lingsar/"
+    },
+    {
+      "title": "Sejarah Singkat Pura Lingsar - Pemerintah Kabupaten Lombok Barat",
+      "url": "https://lombokbaratkab.go.id/sejarah-singkat-pura-lingsar/"
+    },
+    {
+      "title": "Penyungsungan Betara Ngerurah - Sketchfab / nusaheritage.id",
+      "url": "https://sketchfab.com/3d-models/penyungsungan-betara-ngerurah-545b632a40d24f58890ac6d4137f44d5"
+    }
+  ]
+}

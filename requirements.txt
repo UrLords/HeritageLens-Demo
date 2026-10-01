@@ -1,0 +1,8 @@
+flask>=3.0
+flask-cors>=4.0
+python-dotenv>=1.0
+numpy
+pillow
+torch>=2.7
+torchvision
+transformers>=4.56

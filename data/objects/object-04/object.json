@@ -1,0 +1,33 @@
+{
+  "id": "object-04",
+  "name": "Patung Penjaga Area Utama Mandala",
+  "category": "Guardian Statue",
+  "sam3_prompt": "Balinese stone guardian statue in a temple courtyard",
+  "description": "A stone guardian figure associated with the Utama Mandala, the innermost sacred court of a Balinese temple. Its individual name and history remain unverified.",
+  "history": "The available record does not confirm this figure’s exact site or date. This presentation stays with what can be responsibly said: a guardian form, carved in stone, with an uncertain individual story.",
+  "cultural_meaning": "At temple entrances, guardian figures can stand to either side of a gate. Their placement signals protection and marks the passage into a more sacred space.",
+  "location": null,
+  "material": "Stone (specific type unverified)",
+  "model": {
+    "provider": "Sketchfab",
+    "creator": "nusaheritage.id",
+    "url": "https://sketchfab.com/3d-models/patung-penjaga-area-utama-mandala-95a493a73f6148598c0e77588ba408c2",
+    "license": "Check current Sketchfab model page before redistribution",
+    "license_url": "https://sketchfab.com/3d-models/patung-penjaga-area-utama-mandala-95a493a73f6148598c0e77588ba408c2",
+    "local_url": "/models/object-04.glb"
+  },
+  "sources": [
+    {
+      "title": "Patung Batu Bali - Sketchfab collection by nusaheritage.id",
+      "url": "https://sketchfab.com/nusaheritage/collections/patung-batu-bali-09e28f13bd5e4cb4a53b94091d57cb0b"
+    },
+    {
+      "title": "Patung Penjaga Area Utama Mandala - Sketchfab / nusaheritage.id",
+      "url": "https://sketchfab.com/3d-models/patung-penjaga-area-utama-mandala-95a493a73f6148598c0e77588ba408c2"
+    },
+    {
+      "title": "Pengelolaan dan Pelestarian Cagar Budaya dalam Persfektif Agama dan Budaya - Balai Pelestarian Cagar Budaya Bali",
+      "url": "https://kebudayaan.kemdikbud.go.id/bpcbbali/pengelolaan-dan-pelestarian-cagar-budaya-dalam-persfektif-agama-dan-budaya-2/"
+    }
+  ]
+}

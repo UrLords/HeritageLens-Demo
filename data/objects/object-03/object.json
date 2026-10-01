@@ -1,0 +1,37 @@
+{
+  "id": "object-03",
+  "name": "Patung Dwarapala Bale Penyangra Tamu",
+  "category": "Guardian Statue / Dwarapala",
+  "sam3_prompt": "Balinese stone guardian statue standing beside a palace pavilion",
+  "description": "A Dwarapala — a guardian figure — from the Puri Agung Peliatan collection. Its name points to a role at the threshold: watching over an entrance or protected space.",
+  "history": "The figure is associated with Bale Penyangra Tamu, a reception pavilion in the palace grounds. The pavilion is documented from 1825; a separate date for the statue has not been verified.",
+  "cultural_meaning": "Guardian figures mark a transition. In Balinese temple architecture, a pair may stand at an entrance, symbolically protecting the sacred space beyond it.",
+  "location": "Puri Agung Peliatan, Desa Peliatan, Kecamatan Ubud, Kabupaten Gianyar, Bali, Indonesia",
+  "material": "Stone (specific type unverified)",
+  "model": {
+    "provider": "Sketchfab",
+    "creator": "nusaheritage.id",
+    "url": "https://sketchfab.com/3d-models/patung-dwarapala-bale-penyangra-tamu-68b4922c6acb4a38a558a9252fd0da84",
+    "license": "Check current Sketchfab model page before redistribution",
+    "license_url": "https://sketchfab.com/3d-models/patung-dwarapala-bale-penyangra-tamu-68b4922c6acb4a38a558a9252fd0da84",
+    "local_url": "/models/object-03.glb"
+  },
+  "sources": [
+    {
+      "title": "Puri Agung Peliatan - Nusa Heritage ID",
+      "url": "https://www.nusaheritage.id/detail-objek-warisan-berwujud-preview/puri-agung-peliatan"
+    },
+    {
+      "title": "Bale Penyanggra Tamu - Puri Agung Peliatan / Nusa Heritage ID",
+      "url": "https://puriagungpeliatan.nusaheritage.id/bale-penyanggra-tamu/"
+    },
+    {
+      "title": "Patung Dwarapala Bale Penyangra Tamu - Sketchfab / nusaheritage.id",
+      "url": "https://sketchfab.com/3d-models/patung-dwarapala-bale-penyangra-tamu-68b4922c6acb4a38a558a9252fd0da84"
+    },
+    {
+      "title": "Arca Dwarapala - Balai Pelestarian Kebudayaan Wilayah V",
+      "url": "https://kebudayaan.kemdikbud.go.id/bpkw5/arca-dwarapala/"
+    }
+  ]
+}

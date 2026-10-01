@@ -1,0 +1,33 @@
+{
+  "id": "object-02",
+  "name": "Candi Prasada",
+  "category": "Temple Tower / Prasada",
+  "sam3_prompt": "tall Balinese brick temple tower with tiered roof",
+  "description": "A brick prasada rising about 17.2 metres above the grounds of Pura Purusada. Its stepped tower form gives the temple landscape a strong vertical centre.",
+  "history": "The prasada is one of the key archaeological remains at Pura Purusada Kapal. It has served as a place of worship and a protected home for pratima — sacred images and objects.",
+  "cultural_meaning": "Here, architecture holds both devotion and care. The tower marks a sacred place while sheltering objects entrusted to the temple community.",
+  "location": "Pura Purusada, Desa Kapal, Kecamatan Mengwi, Kabupaten Badung, Bali, Indonesia",
+  "material": "Brick, with timber, thatch and stone details",
+  "model": {
+    "provider": "Sketchfab",
+    "creator": "nusaheritage.id",
+    "url": "https://sketchfab.com/3d-models/candi-prasada-4bbff743ec4341fabfdb1592c289e8db",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "local_url": "/models/object-02.glb"
+  },
+  "sources": [
+    {
+      "title": "Candi Prasada - Sketchfab / nusaheritage.id",
+      "url": "https://sketchfab.com/3d-models/candi-prasada-4bbff743ec4341fabfdb1592c289e8db"
+    },
+    {
+      "title": "Inventarisasi Cagar Budaya di Desa Kapal - Balai Pelestarian Cagar Budaya Bali",
+      "url": "https://kebudayaan.kemdikbud.go.id/bpcbbali/inventarisasi-cagar-budaya-di-desa-kapal-kecamatan-mengwi-kabupaten-badung-propinsi-bali/"
+    },
+    {
+      "title": "Pura Purusada - Data Cagar Budaya Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi",
+      "url": "https://budaya.data.kemdikbud.go.id/cagarbudaya/objek/KB003510"
+    }
+  ]
+}
