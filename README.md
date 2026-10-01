@@ -1,6 +1,8 @@
-# HeritageLens
+# HeritageLens — Demo
 
 HeritageLens is a local-first image recognition and 3D viewer for five heritage objects from Bali and Lombok. Upload a photograph to find a supported object, inspect its local 3D model, and read a short cultural record.
+
+![HeritageLens home page preview](docs/images/heritagelens-home.png)
 
 The application uses React, TypeScript and Three.js in the browser, with a Flask API for image recognition. CLIP is the default embedding model. DINOv3 and SAM 3 are optional.
 
