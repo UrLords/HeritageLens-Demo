@@ -8,7 +8,7 @@ The application uses React, TypeScript and Three.js in the browser, with a Flask
 
 ## Track 5 workshop
 
-The static workshop opens at `/` on Vercel or at `/workshop` in the local app. Choose one of the five registered artifacts to show a preset recognition result, read its story in English or Bahasa Indonesia, and open the source and model credits. “No community review recorded” describes this repository's records. The Indonesian text translates the existing catalog and has not been presented as community reviewed.
+The original HeritageLens homepage opens at `/`. On Vercel, **Open the lens** leads to the static workshop at `/workshop`. In the local app, it leads to the live scan at `/scan`; the workshop is also available at `/workshop`. Choose one of the five registered artifacts to show a preset recognition result, read its story in English or Bahasa Indonesia, and open the source and model credits. “No community review recorded” describes this repository's records. The Indonesian text translates the existing catalog and has not been presented as community reviewed.
 
 | Feature | Static workshop | Local app |
 | --- | --- | --- |

@@ -10,14 +10,8 @@ export default function App() {
   return (
     <Routes>
       <Route path="/workshop" element={workshop} />
-      {import.meta.env.MODE === "workshop" ? (
-        <Route path="/" element={workshop} />
-      ) : (
-        <>
-          <Route path="/" element={<Home />} />
-          <Route path="/scan" element={<Scan />} />
-        </>
-      )}
+      <Route path="/" element={<Home />} />
+      {import.meta.env.MODE !== "workshop" && <Route path="/scan" element={<Scan />} />}
     </Routes>
   );
 }
