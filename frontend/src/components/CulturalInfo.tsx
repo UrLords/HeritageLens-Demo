@@ -8,19 +8,11 @@ export default function CulturalInfo({ m, translation }: { m: Metadata; translat
   const indonesian = language === "id" && translation !== undefined;
   const story = indonesian ? translation : m;
   const location = m.location?.trim();
-  const locationCard = (
-    <div className="story-location">
-      <div>
-        <h3>{indonesian ? "Lokasi" : "Location"}</h3>
-        <p>{location || (indonesian ? "Lokasi belum terverifikasi." : "Location not verified.")}</p>
-      </div>
-      {location && (
-        <a className="button-primary" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`}
-          target="_blank" rel="noreferrer">
-          {indonesian ? "Buka di Google Maps" : "Open in Google Maps"} <span aria-hidden="true">↗</span>
-        </a>
-      )}
-    </div>
+  const mapLink = location && (
+    <a className="story-map-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`}
+      target="_blank" rel="noreferrer">
+      {indonesian ? "Buka di Google Maps" : "Open in Google Maps"} <span aria-hidden="true">↗</span>
+    </a>
   );
   const sources = (
       <details className="source-disclosure">
@@ -46,12 +38,13 @@ export default function CulturalInfo({ m, translation }: { m: Metadata; translat
           <p className="eyebrow">{story.category || (indonesian ? "Benda warisan budaya" : "Heritage object")}</p>
           <h2>{m.name}</h2>
         </div>
-        {story.material && (
-          <dl className="exhibit-facts">
-            <div><dt>{indonesian ? "Bahan" : "Material"}</dt><dd>{story.material}</dd></div>
-          </dl>
-        )}
-        {locationCard}
+        <dl className="exhibit-facts">
+          {story.material && <div><dt>{indonesian ? "Bahan" : "Material"}</dt><dd>{story.material}</dd></div>}
+          <div>
+            <dt>{indonesian ? "Tempat" : "Place"}</dt>
+            <dd>{location || (indonesian ? "Lokasi belum terverifikasi." : "Location not verified.")}{mapLink}</dd>
+          </div>
+        </dl>
 
         <div className="exhibit-topics" role="group" aria-label={indonesian ? "Topik objek" : "Object topics"}>
           {(Object.keys(topics) as Array<keyof typeof topics>).map((key) => (
@@ -70,19 +63,19 @@ export default function CulturalInfo({ m, translation }: { m: Metadata; translat
 
   return (
     <section className="story-section reveal-up" lang="en">
-      <header className="story-heading">
-        <p className="eyebrow">Object details</p>
-        <h2>{m.name}</h2>
-      </header>
-      <div className="story-lede"><p>{m.description}</p></div>
-      <dl className="object-details">
-        <div><dt>Object type</dt><dd>{m.category || "Heritage object"}</dd></div>
-        {m.material && <div><dt>Material</dt><dd>{m.material}</dd></div>}
-      </dl>
-      {locationCard}
+      <div className="story-heading">
+        <div><p className="eyebrow">The story within the form</p><h2>More than a silhouette.</h2></div>
+        <span className="story-asterisk" aria-hidden="true">✳</span>
+      </div>
+      <div className="story-lede"><span className="story-lede-mark" aria-hidden="true">“</span><p>{m.description}</p></div>
       <div className="story-facts">
-        <article className="story-card"><h3>History</h3><p>{m.history}</p></article>
-        <article className="story-card"><h3>Cultural significance</h3><p>{m.cultural_meaning}</p></article>
+        <article className="story-card"><span className="story-card-index">01 · PLACE & TIME</span><h3>Rooted in place.</h3><p>{m.history}</p></article>
+        <article className="story-card"><span className="story-card-index">02 · LIVING MEANING</span><h3>Held in meaning.</h3><p>{m.cultural_meaning}</p></article>
+      </div>
+      <div className="object-details">
+        <div><span>FORM</span><strong>{m.category || "Heritage object"}</strong></div>
+        {m.material && <div><span>MATERIAL</span><strong>{m.material}</strong></div>}
+        <div><span>PLACE</span><strong>{location || "Location not verified."}</strong>{mapLink}</div>
       </div>
       {sources}
     </section>
