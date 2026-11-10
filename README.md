@@ -6,6 +6,41 @@ HeritageLens is a local-first image recognition and 3D viewer for five heritage 
 
 The application uses React, TypeScript and Three.js in the browser, with a Flask API for image recognition. CLIP is the default embedding model. DINOv3 and SAM 3 are optional.
 
+## Track 5 workshop
+
+The static workshop opens at `/` on Vercel or at `/workshop` in the local app. Choose one of the five registered artifacts to show a preset recognition result, read its story in English or Bahasa Indonesia, and open the source and model credits. “No community review recorded” describes this repository's records. The Indonesian text translates the existing catalog and has not been presented as community reviewed.
+
+| Feature | Static workshop | Local app |
+| --- | --- | --- |
+| Recognition | Preset result from the artifact picker | Flask and CLIP image matching at `/scan` |
+| 3D | Existing GLB when supplied for public use | Existing local GLBs |
+| SAM 3 segmentation | Unavailable | Optional with a supported setup |
+| 3D reconstruction | Unavailable | Unavailable |
+
+### Build and deploy
+
+Run these commands from the repository root. Use a supported Node.js LTS release.
+
+```sh
+npm ci --prefix frontend
+npm run build:workshop --prefix frontend
+npm run preview --prefix frontend
+```
+
+Import the repository into Vercel and leave **Root Directory** at the repository root. The checked-in configuration installs the frontend, builds in workshop mode, serves `frontend/dist`, and supports direct visits to `/workshop`. The static build needs no Python, Flask server, API keys, reference images, embeddings, or model checkpoints. Vercel Hobby is free for eligible personal, non-commercial projects within its limits.
+
+### Public 3D assets
+
+The workshop builds and displays all stories without GLBs. The five local GLBs under `frontend/public/models/` are ignored by Git and excluded from the workshop build. The workshop includes two unmodified GLBs from the original downloaded archives. Sketchfab's model API confirmed CC BY 4.0 for both. Textures are embedded.
+
+| Workshop filename | Artifact | Model credit in the catalog |
+| --- | --- | --- |
+| `frontend/workshop-models/object-01.glb` | Penyungsungan Betara Ngerurah | nusaheritage.id on Sketchfab, CC BY 4.0 |
+| `frontend/workshop-models/object-02.glb` | Candi Prasada | nusaheritage.id on Sketchfab, CC BY 4.0 |
+
+Commit both workshop GLBs with the code so Vercel can build with them. If you replace an asset, confirm redistribution rights, keep textures embedded, retain the creator, source, and license links, and document any changes. The workshop imports only these two filenames. The remaining three models have unresolved redistribution terms in the catalog and are excluded.
+
+
 ## What it does
 
 - Match a JPG, PNG or WEBP photograph against five registered objects.

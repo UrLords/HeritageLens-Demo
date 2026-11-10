@@ -78,7 +78,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="site-footer"><Link to="/" className="brand"><span className="brand-mark">H</span><span>HERITAGE<span className="brand-light">LENS</span></span></Link><p>Look carefully. Carry the story forward.</p><Link to="/scan" className="footer-link">Start exploring ↗</Link></footer>
+      <footer className="site-footer"><Link to="/" className="brand"><span className="brand-mark">H</span><span>HERITAGE<span className="brand-light">LENS</span></span></Link><Link to="/workshop" className="footer-link">Track 5 workshop ↗</Link><Link to="/scan" className="footer-link">Start exploring ↗</Link></footer>
     </main>
   );
 }

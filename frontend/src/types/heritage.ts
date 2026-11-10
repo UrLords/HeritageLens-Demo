@@ -1,8 +1,10 @@
 export interface ModelInfo { provider: string; creator: string; url: string; local_url: string; license: string; license_url: string }
 export interface Metadata {
   id: string; name: string; category?: string; description: string; history: string; cultural_meaning: string;
-  location?: string; material?: string; model: ModelInfo; sources: { title: string; url: string }[];
+  location?: string | null; material?: string; model: ModelInfo; sources: { title: string; url: string }[];
 }
+export type StoryTranslation = Pick<Metadata, "category" | "material" | "description" | "history" | "cultural_meaning">;
+
 export interface Recognized {
   status: "recognized"; object: { id: string; name: string; score: number };
   segmentation: { mask_url: string; segmented_url: string } | null; segmentation_warning?: string; metadata: Metadata; model: ModelInfo;
