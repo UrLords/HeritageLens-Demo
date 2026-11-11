@@ -1,6 +1,5 @@
 import { lazy, Suspense, useState } from "react";
 import { Link } from "react-router-dom";
-import Attribution from "../components/Attribution";
 import { collection } from "../data/collection";
 import { getOnlineModelUrl, onlineModelCredits } from "../data/onlineModels";
 
@@ -11,6 +10,7 @@ export default function Home() {
   const active = collection[activeIndex];
   const hosted = import.meta.env.MODE === "hosted";
   const modelUrl = hosted ? getOnlineModelUrl(active.id) : active.local_url;
+  const credit = hosted && modelUrl ? onlineModelCredits.find((object) => object.id === active.id)?.model : undefined;
 
   return (
     <main className="site-shell">
@@ -47,7 +47,16 @@ export default function Home() {
             )}
           </div>
           <div className="viewer-caption">
-            <div><p className="caption-place">{active.place}</p><h2>{active.name}</h2></div>
+            <div>
+              <p className="caption-place">{active.place}</p>
+              <h2>{active.name}</h2>
+              {credit && (
+                <small>
+                  Model by <a href={credit.url} target="_blank" rel="noreferrer">{credit.creator}</a>
+                  {" · "}<a href={credit.license_url} target="_blank" rel="noreferrer">{credit.license}</a>
+                </small>
+              )}
+            </div>
             {modelUrl && <span className="caption-note">Drag to turn<br />Scroll to come closer</span>}
           </div>
           <div className="collection-selector" role="group" aria-label="Choose an object to view">
@@ -86,15 +95,7 @@ export default function Home() {
             </button>
           ))}
         </div>
-        {hosted && onlineModelCredits.filter((object) => getOnlineModelUrl(object.id)).map((object) => (
-          <div key={object.id}>
-            <p className="caption-place">{object.name}</p>
-            <Attribution model={object.model} />
-          </div>
-        ))}
       </section>
-
-      <footer className="site-footer"><Link to="/" className="brand"><span className="brand-mark">H</span><span>HERITAGE<span className="brand-light">LENS</span></span></Link><Link to="/scan" className="footer-link">Scan a photo ↗</Link></footer>
     </main>
   );
 }
