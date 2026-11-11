@@ -25,7 +25,6 @@ export default function UploadPanel({ onFile, disabled }: { onFile: (file: File)
         <span className="upload-button">Choose an image <span aria-hidden="true">↗</span></span>
         <span className="upload-meta">JPG, PNG or WEBP <i /> Up to 10 MB</span>
       </label>
-      <div className="upload-foot"><span>ONE OBJECT AT A TIME</span><span>YOUR PHOTO STAYS LOCAL</span></div>
       {err && <p className="message-error" role="alert">{err}</p>}
     </div>
   );

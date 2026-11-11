@@ -4,6 +4,21 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import type { ModelInfo } from "../types/heritage";
 
+function disposeModel(model: THREE.Group) {
+  model.traverse((object) => {
+    if (!(object instanceof THREE.Mesh)) return;
+
+    object.geometry.dispose();
+    const materials = Array.isArray(object.material) ? object.material : [object.material];
+    for (const material of materials) {
+      for (const value of Object.values(material)) {
+        if (value instanceof THREE.Texture) value.dispose();
+      }
+      material.dispose();
+    }
+  });
+}
+
 export default function ThreeDViewer({ model }: { model: Pick<ModelInfo, "local_url"> }) {
   const mountRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
@@ -66,18 +81,7 @@ export default function ThreeDViewer({ model }: { model: Pick<ModelInfo, "local_
       model.local_url,
       (gltf) => {
         if (disposed) {
-          gltf.scene.traverse((item) => {
-            if (item instanceof THREE.Mesh) {
-              item.geometry.dispose();
-              const materials = Array.isArray(item.material) ? item.material : [item.material];
-              materials.forEach((material) => {
-                Object.values(material).forEach((value) => {
-                  if (value instanceof THREE.Texture) value.dispose();
-                });
-                material.dispose();
-              });
-            }
-          });
+          disposeModel(gltf.scene);
           return;
         }
         modelRoot = gltf.scene;
@@ -122,18 +126,7 @@ export default function ThreeDViewer({ model }: { model: Pick<ModelInfo, "local_
       window.cancelAnimationFrame(frame);
       observer.disconnect();
       controls.dispose();
-      modelRoot?.traverse((item) => {
-        if (item instanceof THREE.Mesh) {
-          item.geometry.dispose();
-          const materials = Array.isArray(item.material) ? item.material : [item.material];
-          materials.forEach((material) => {
-            Object.values(material).forEach((value) => {
-              if (value instanceof THREE.Texture) value.dispose();
-            });
-            material.dispose();
-          });
-        }
-      });
+      if (modelRoot) disposeModel(modelRoot);
       renderer.dispose();
       renderer.domElement.remove();
     };
@@ -142,9 +135,9 @@ export default function ThreeDViewer({ model }: { model: Pick<ModelInfo, "local_
   return (
     <div className="viewer-frame">
       <div ref={mountRef} className="viewer-mount" />
-      {loading && !error && <p className="viewer-loading">Bringing the object into view…</p>}
+      {loading && !error && <p className="viewer-loading">Loading 3D model...</p>}
       {error && <p className="viewer-error">{error}</p>}
-      <p className="viewer-controls">Drag to turn <span>·</span> Scroll to come closer</p>
+      <p className="viewer-controls">Drag to rotate <span>·</span> Scroll or pinch to zoom</p>
     </div>
   );
 }

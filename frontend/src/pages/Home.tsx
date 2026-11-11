@@ -2,16 +2,15 @@ import { lazy, Suspense, useState } from "react";
 import { Link } from "react-router-dom";
 import Attribution from "../components/Attribution";
 import { collection } from "../data/collection";
-import { workshopModels, workshopObjects } from "../data/workshop";
+import { getOnlineModelUrl, onlineModelCredits } from "../data/onlineModels";
 
 const ThreeDViewer = lazy(() => import("../components/ThreeDViewer"));
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = collection[activeIndex];
-  const hosted = import.meta.env.MODE === "workshop";
-  const lensPath = hosted ? "/workshop" : "/scan";
-  const modelUrl = hosted ? workshopModels[`../../workshop-models/${active.id}.glb`] : active.local_url;
+  const hosted = import.meta.env.MODE === "hosted";
+  const modelUrl = hosted ? getOnlineModelUrl(active.id) : active.local_url;
 
   return (
     <main className="site-shell">
@@ -21,20 +20,19 @@ export default function Home() {
         </Link>
         <nav aria-label="Main navigation" className="nav-links">
           <a href="#collection">The collection</a>
-          <Link to={lensPath} className="nav-cta">Open the lens <span aria-hidden="true">↗</span></Link>
+          <Link to="/scan" className="nav-cta">Open the lens <span aria-hidden="true">↗</span></Link>
         </nav>
       </header>
 
       <section className="hero-section">
         <div className="hero-copy reveal-up">
-          <p className="eyebrow"><span className="eyebrow-dot" /> A small digital heritage archive</p>
+          <p className="eyebrow"><span className="eyebrow-dot" /> HERITAGE COLLECTION</p>
           <h1>Look closer.<br /><em>Remember more.</em></h1>
-          <p className="hero-intro">A photograph is a beginning. Meet the forms, stories and living traditions held in five Balinese heritage objects.</p>
+          <p className="hero-intro">Explore five heritage objects from Bali and Lombok. See their 3D models and learn about their history and location.</p>
           <div className="hero-actions">
-            <Link to={lensPath} className="button-primary">{hosted ? "Explore the demo" : "Begin with a photograph"} <span aria-hidden="true">↗</span></Link>
-            <a href="#collection" className="text-link">Wander the collection <span aria-hidden="true">↓</span></a>
+            <Link to="/scan" className="button-primary">Begin with a photograph <span aria-hidden="true">↗</span></Link>
+            <a href="#collection" className="text-link">Browse the collection <span aria-hidden="true">↓</span></a>
           </div>
-          <div className="hero-footnote"><span>01—05</span><span>A pocket museum, made to explore</span></div>
         </div>
 
         <div className="hero-object reveal-up reveal-delay-1">
@@ -45,7 +43,7 @@ export default function Home() {
                 <ThreeDViewer model={{ local_url: modelUrl }} />
               </Suspense>
             ) : (
-              <div className="viewer-frame viewer-suspense"><p>3D view unavailable online. <Link to={lensPath}>Explore the catalog ↗</Link></p></div>
+              <div className="viewer-frame viewer-suspense"><p>The 3D model for this object is unavailable online.</p></div>
             )}
           </div>
           <div className="viewer-caption">
@@ -65,20 +63,19 @@ export default function Home() {
       </section>
 
       <section id="why" className="intro-band reveal-up">
-        <p className="eyebrow">A different way to meet an object</p>
         <div className="intro-grid">
-          <h2>From a single image<br />to a <em>closer connection.</em></h2>
-          <p>HeritageLens brings recognition, a tactile 3D view and cultural context into one quiet place. Turn the object. Notice its silhouette. Follow the details at your own pace.</p>
+          <h2>How photo matching works</h2>
+          <p>HeritageLens compares your photo with reference images from the collection. A match opens the object’s record.</p>
         </div>
         <div className="experience-steps">
-          <article><span className="step-number">01</span><div><h3>Bring a photograph</h3><p>{hosted ? "Open the workshop to explore a sample recognition result." : "Choose an image of one of the objects in this small collection."}</p></div></article>
-          <article><span className="step-number">02</span><div><h3>Find its form</h3><p>{hosted ? "The workshop uses preset matches for the five objects." : "Visual matching finds the closest recorded object in the archive."}</p></div></article>
-          <article><span className="step-number">03</span><div><h3>Explore the story</h3><p>Move around its 3D form and unfold the context behind it.</p></div></article>
+          <article><span className="step-number">01</span><div><h3>Upload a photo</h3><p>Choose a clear image of an object in the collection.</p></div></article>
+          <article><span className="step-number">02</span><div><h3>Check the match</h3><p>The scanner checks whether the photo is a close match.</p></div></article>
+          <article><span className="step-number">03</span><div><h3>View the object</h3><p>Read the object’s history and location, and open its 3D model when available.</p></div></article>
         </div>
       </section>
 
       <section id="collection" className="collection-section">
-        <div className="section-heading reveal-up"><div><p className="eyebrow">Five forms · one small archive</p><h2>Objects with <em>presence.</em></h2></div><Link to={lensPath} className="text-link">{hosted ? "Explore the workshop" : "Explore with your photo"} <span aria-hidden="true">↗</span></Link></div>
+        <div className="section-heading reveal-up"><div><h2>The collection</h2></div><Link to="/scan" className="text-link">Scan a photo <span aria-hidden="true">↗</span></Link></div>
         <div className="collection-list">
           {collection.map((item, index) => (
             <button key={item.id} type="button" className={`collection-row ${activeIndex === index ? "is-selected" : ""}`} onClick={() => { setActiveIndex(index); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
@@ -89,7 +86,7 @@ export default function Home() {
             </button>
           ))}
         </div>
-        {hosted && workshopObjects.filter((object) => workshopModels[`../../workshop-models/${object.id}.glb`]).map((object) => (
+        {hosted && onlineModelCredits.filter((object) => getOnlineModelUrl(object.id)).map((object) => (
           <div key={object.id}>
             <p className="caption-place">{object.name}</p>
             <Attribution model={object.model} />
@@ -97,7 +94,7 @@ export default function Home() {
         ))}
       </section>
 
-      <footer className="site-footer"><Link to="/" className="brand"><span className="brand-mark">H</span><span>HERITAGE<span className="brand-light">LENS</span></span></Link><Link to="/workshop" className="footer-link">Track 5 workshop ↗</Link><Link to={lensPath} className="footer-link">Start exploring ↗</Link></footer>
+      <footer className="site-footer"><Link to="/" className="brand"><span className="brand-mark">H</span><span>HERITAGE<span className="brand-light">LENS</span></span></Link><Link to="/scan" className="footer-link">Scan a photo ↗</Link></footer>
     </main>
   );
 }

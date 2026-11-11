@@ -3,7 +3,6 @@ export interface Metadata {
   id: string; name: string; category?: string; description: string; history: string; cultural_meaning: string;
   location?: string | null; material?: string; model: ModelInfo; sources: { title: string; url: string }[];
 }
-export type StoryTranslation = Pick<Metadata, "category" | "material" | "description" | "history" | "cultural_meaning">;
 
 export interface Recognized {
   status: "recognized"; object: { id: string; name: string; score: number };

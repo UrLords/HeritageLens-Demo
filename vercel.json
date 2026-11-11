@@ -1,11 +1,11 @@
 {
   "framework": "vite",
   "installCommand": "npm ci --prefix frontend",
-  "buildCommand": "npm run build:workshop --prefix frontend",
+  "buildCommand": "npm run build:hosted --prefix frontend",
   "outputDirectory": "frontend/dist",
   "rewrites": [
     {
-      "source": "/workshop",
+      "source": "/scan",
       "destination": "/index.html"
     }
   ]

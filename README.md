@@ -1,45 +1,24 @@
 # HeritageLens - Demo
 
-HeritageLens is a local-first image recognition and 3D viewer for five heritage objects from Bali and Lombok(for now). Upload a photograph to find a supported object, inspect its local 3D model, and read a short cultural record.
+HeritageLens is a local-first image recognition and 3D viewer for five heritage objects from Bali and Lombok. Upload a photograph to find a supported object, inspect its local 3D model, and read a short cultural record.
 
 ![HeritageLens home page preview](docs/images/heritagelens-home.png)
 
 The application uses React, TypeScript and Three.js in the browser, with a Flask API for image recognition. CLIP is the default embedding model. DINOv3 and SAM 3 are optional.
 
-## Track 5 workshop
+## Vercel deployment
 
-The original HeritageLens homepage opens at `/`. On Vercel, **Open the lens** leads to the static workshop at `/workshop`. In the local app, it leads to the live scan at `/scan`; the workshop is also available at `/workshop`. Choose one of the five registered artifacts to show a preset recognition result, read its story in English or Bahasa Indonesia, and open the source and model credits. “No community review recorded” describes this repository's records. The Indonesian text translates the existing catalog and has not been presented as community reviewed.
-
-| Feature | Static workshop | Local app |
-| --- | --- | --- |
-| Recognition | Preset result from the artifact picker | Flask and CLIP image matching at `/scan` |
-| 3D | Existing GLB when supplied for public use | Existing local GLBs |
-| SAM 3 segmentation | Unavailable | Optional with a supported setup |
-| 3D reconstruction | Unavailable | Unavailable |
-
-### Build and deploy
-
-Run these commands from the repository root. Use a supported Node.js LTS release.
+Import the repository into Vercel with **Root Directory** set to the repository root. The checked-in configuration builds the static frontend and routes direct visits to `/scan`.
 
 ```sh
 npm ci --prefix frontend
-npm run build:workshop --prefix frontend
+npm run build:hosted --prefix frontend
 npm run preview --prefix frontend
 ```
 
-Import the repository into Vercel and leave **Root Directory** at the repository root. The checked-in configuration installs the frontend, builds in workshop mode, serves `frontend/dist`, and supports direct visits to `/workshop`. The static build needs no Python, Flask server, API keys, reference images, embeddings, or model checkpoints. Vercel Hobby is free for eligible personal, non-commercial projects within its limits.
+Photo matching requires the Flask API. To enable scanning on Vercel, set `VITE_API_BASE_URL` to the public HTTPS origin of a running Flask backend and redeploy. This value is public and must not contain credentials. The scan page shows an unavailable message when the hosted build has no backend URL. Local development uses the existing Vite proxy and requires no frontend environment variable.
 
-### Public 3D assets
-
-The workshop builds and displays all stories without GLBs. The five local GLBs under `frontend/public/models/` are ignored by Git and excluded from the workshop build. The workshop includes two unmodified GLBs from the original downloaded archives. Sketchfab's model API confirmed CC BY 4.0 for both. Textures are embedded.
-
-| Workshop filename | Artifact | Model credit in the catalog |
-| --- | --- | --- |
-| `frontend/workshop-models/object-01.glb` | Penyungsungan Betara Ngerurah | nusaheritage.id on Sketchfab, CC BY 4.0 |
-| `frontend/workshop-models/object-02.glb` | Candi Prasada | nusaheritage.id on Sketchfab, CC BY 4.0 |
-
-Commit both workshop GLBs with the code so Vercel can build with them. If you replace an asset, confirm redistribution rights, keep textures embedded, retain the creator, source, and license links, and document any changes. The workshop imports only these two filenames. The remaining three models have unresolved redistribution terms in the catalog and are excluded.
-
+The hosted build includes the two original CC BY 4.0 models in `frontend/online-models/`, with creator and source credits in the collection. Private files in `frontend/public/models/` are excluded from the hosted build.
 
 ## What it does
 
@@ -53,7 +32,7 @@ Commit both workshop GLBs with the code so Vercel can build with them. If you re
 
 - Python 3.12
 - Node.js 18 or later with npm
-- Internet access for package installation and the initial CLIP model download (well it depends on how you install it and how you want to use it)
+- Internet access for package installation and the initial CLIP model download
 - CUDA and an authorized SAM 3 checkpoint for optional segmentation
 
 Recognition runs on CPU. SAM 3 is not required for object matching or 3D viewing.

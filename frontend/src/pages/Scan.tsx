@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { analyze, getJob } from "../services/api";
+import { analyze, backendUrl, getJob, scanAvailable } from "../services/api";
+import { getOnlineModelUrl } from "../data/onlineModels";
 import type { Job } from "../types/heritage";
 import UploadPanel from "../components/UploadPanel";
 import ProcessingPipeline from "../components/ProcessingPipeline";
@@ -60,6 +61,9 @@ export default function Scan() {
   };
 
   const result = job?.result;
+  const modelUrl = result?.status === "recognized"
+    ? import.meta.env.MODE === "hosted" ? getOnlineModelUrl(result.object.id) : result.model.local_url
+    : undefined;
   useEffect(() => {
     if (result?.status === "recognized") {
       scrollTimer.current = window.setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 180);
@@ -74,29 +78,27 @@ export default function Scan() {
       </header>
 
       <section className="scan-intro reveal-up">
-        <p className="eyebrow">A photograph opens the door</p>
-        <h1>Let’s meet<br /><em>the object.</em></h1>
-        <p>Choose a clear image from this collection. We’ll find its closest match and bring its 3D form and story into view.</p>
+        <h1>Scan a heritage object</h1>
+        <p>Upload a photo to compare it with the five objects in the collection.</p>
+        {!scanAvailable && <p className="message-error" role="status">Photo scanning is currently available in the local app. This site is not connected to the scan server.</p>}
       </section>
 
       <section className="scan-workspace" aria-label="Object image scan">
         <div className="upload-column">
           <div className="section-kicker"><span>01</span> YOUR PHOTOGRAPH</div>
-          <UploadPanel onFile={start} disabled={busy} />
+          <UploadPanel onFile={start} disabled={busy || !scanAvailable} />
           {err && <p className="message-error" role="alert">{err}</p>}
-          {job?.status === "error" && <div className="message-error" role="alert"><span className="message-label">A small snag</span>{job.error_type === "setup" ? "The archive needs one setup step: " : job.error_type === "model" ? "The recognition model needs attention: " : "We couldn’t read that image: "}{job.error}</div>}
+          {job?.status === "error" && <div className="message-error" role="alert"><span className="message-label">Scan failed</span>{job.error_type === "setup" ? "Scanner setup required: " : job.error_type === "model" ? "Recognition model error: " : "We couldn’t read that image: "}{job.error}</div>}
           <div className="photo-preview" aria-live="polite">
-            {preview ? <><div className="preview-meta"><span>IMAGE RECEIVED</span><span>LOCAL PREVIEW</span></div><img src={preview} alt="Your uploaded heritage object" /></> : <div className="preview-empty"><span className="preview-sun" aria-hidden="true">✳</span><span>Your image will appear here</span><small>Private preview · stays on this device</small></div>}
+            {preview ? <><div className="preview-meta"><span>IMAGE RECEIVED</span><span>LOCAL PREVIEW</span></div><img src={preview} alt="Your uploaded heritage object" /></> : <div className="preview-empty"><span className="preview-sun" aria-hidden="true">✳</span><span>Your image will appear here</span></div>}
           </div>
           {busy && <ProcessingPipeline stage={job?.stage ?? "uploaded"} />}
         </div>
         <aside className="scan-aside">
-          <div className="aside-index">FIELD NOTE <span>№ 01</span></div>
-          <h2>Look for the whole shape.</h2>
-          <p>A front-facing view with the complete object in frame usually gives the clearest match. A phone photo or a screenshot both work.</p>
-          <p className="aside-small">This presentation archive recognizes five objects. If the image doesn’t match one closely enough, we’ll say so.</p>
-          <div className="aside-rule" />
-          <div className="aside-stamp"><span>H</span><small>LOCAL<br />ARCHIVE</small></div>
+          <div className="aside-index">PHOTO TIPS</div>
+          <h2>Keep the whole object in frame.</h2>
+          <p>Use a clear front view with good lighting. You can also try a screenshot of the model.</p>
+          <p className="aside-small">The scanner can match only the five objects in the collection.</p>
         </aside>
       </section>
 
@@ -108,22 +110,21 @@ export default function Scan() {
           <div className="result-viewer-layout">
             <div className="result-viewer-main">
               <div className="section-kicker"><span>02</span> INTERACTIVE 3D MODEL</div>
-              <Suspense fallback={<div className="viewer-frame viewer-suspense">Preparing the 3D view…</div>}><ThreeDViewer model={result.model} /></Suspense>
+              {modelUrl ? (
+                <Suspense fallback={<div className="viewer-frame viewer-suspense">Loading 3D viewer...</div>}>
+                  <ThreeDViewer model={{ local_url: modelUrl }} />
+                </Suspense>
+              ) : <p>The 3D model for this object is unavailable online.</p>}
             </div>
-            <aside className="viewer-side-note">
-              <p className="eyebrow">A closer view</p>
-              <h3>Take your time<br />with the details.</h3>
-              <p>Drag to turn the object. Scroll or pinch to move closer. The model stays here on your device.</p>
-              <div className="side-note-mark" aria-hidden="true">✳</div>
-            </aside>
+            {modelUrl && <aside className="viewer-side-note"><h3>3D controls</h3><p>Drag to rotate. Scroll or pinch to zoom.</p></aside>}
           </div>
-          {result.segmentation ? <div className="cutout-section"><div className="section-kicker"><span>03</span> TURN THE FORM</div><ImageComparison original={preview} segmented={result.segmentation.segmented_url} /></div> : <div className="quiet-note"><span className="quiet-note-mark">✳</span><span>The 3D form is ready to explore. Image cutout is an optional feature.</span></div>}
+          {result.segmentation ? <div className="cutout-section"><div className="section-kicker"><span>03</span> PHOTO CUTOUT</div><ImageComparison original={preview} segmented={backendUrl(result.segmentation.segmented_url)} /></div> : null}
           <CulturalInfo m={result.metadata} />
           <Attribution model={result.model} />
-          <div className="again-row"><p>There is always more to notice.</p><button type="button" onClick={() => document.querySelector<HTMLInputElement>("#heritage-photo")?.click()} className="text-link">Choose another image <span aria-hidden="true">↗</span></button></div>
+          <div className="again-row"><button type="button" onClick={() => document.querySelector<HTMLInputElement>("#heritage-photo")?.click()} className="text-link">Choose another image <span aria-hidden="true">↗</span></button></div>
         </section>
       )}
-      <footer className="site-footer scan-footer"><Link to="/" className="brand"><span className="brand-mark">H</span><span>HERITAGE<span className="brand-light">LENS</span></span></Link><p>Made for looking a little longer.</p><span className="footer-edition">A SMALL DIGITAL ARCHIVE · 2026</span></footer>
+      <footer className="site-footer scan-footer"><Link to="/" className="brand"><span className="brand-mark">H</span><span>HERITAGE<span className="brand-light">LENS</span></span></Link></footer>
     </main>
   );
 }
