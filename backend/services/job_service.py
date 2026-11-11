@@ -1,4 +1,3 @@
-"""Manage asynchronous recognition jobs in the Flask process."""
 import threading
 import uuid
 

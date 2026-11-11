@@ -1,4 +1,3 @@
-"""Generate normalized image embeddings with the configured model."""
 import numpy as np
 from backend import config
 
@@ -38,12 +37,11 @@ def embed_image(img) -> np.ndarray:
     import torch
     try:
         with torch.no_grad():
+            inp = proc(images=img, return_tensors="pt").to(dev)
             if config.EMBEDDING_BACKEND == "clip":
-                inp = proc(images=img, return_tensors="pt").to(dev)
                 vision = model.vision_model(pixel_values=inp["pixel_values"], return_dict=True)
                 v = model.visual_projection(vision.pooler_output)
             else:
-                inp = proc(images=img, return_tensors="pt").to(dev)
                 v = model(**inp).pooler_output
         v = v[0].float().cpu().numpy()
         if v.ndim != 1:

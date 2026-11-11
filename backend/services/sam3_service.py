@@ -1,4 +1,3 @@
-"""Run prompt-based image segmentation with SAM 3."""
 import numpy as np
 from PIL import Image
 from backend import config

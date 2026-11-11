@@ -1,24 +1,10 @@
 # HeritageLens - Demo
 
-HeritageLens is a local-first image recognition and 3D viewer for five heritage objects from Bali and Lombok. Upload a photograph to find a supported object, inspect its local 3D model, and read a short cultural record.
+HeritageLens is a local-first image recognition and 3D viewer for five heritage objects from Bali and Lombok(for now). Upload a photograph to find a supported object, inspect its local 3D model, and read a short cultural record.
 
 ![HeritageLens home page preview](docs/images/heritagelens-home.png)
 
 The application uses React, TypeScript and Three.js in the browser, with a Flask API for image recognition. CLIP is the default embedding model. DINOv3 and SAM 3 are optional.
-
-## Vercel deployment
-
-Import the repository into Vercel with **Root Directory** set to the repository root. The checked-in configuration builds the static frontend and routes direct visits to `/scan`.
-
-```sh
-npm ci --prefix frontend
-npm run build:hosted --prefix frontend
-npm run preview --prefix frontend
-```
-
-Photo matching requires the Flask API. To enable scanning on Vercel, set `VITE_API_BASE_URL` to the public HTTPS origin of a running Flask backend and redeploy. This value is public and must not contain credentials. The scan page shows an unavailable message when the hosted build has no backend URL. Local development uses the existing Vite proxy and requires no frontend environment variable.
-
-The hosted build includes the two original CC BY 4.0 models in `frontend/online-models/`, with creator and source credits in the collection. Private files in `frontend/public/models/` are excluded from the hosted build.
 
 ## What it does
 
@@ -32,7 +18,7 @@ The hosted build includes the two original CC BY 4.0 models in `frontend/online-
 
 - Python 3.12
 - Node.js 18 or later with npm
-- Internet access for package installation and the initial CLIP model download
+- Internet access for package installation and the initial CLIP model download (well it depends on how you install it and how you want to use it)
 - CUDA and an authorized SAM 3 checkpoint for optional segmentation
 
 Recognition runs on CPU. SAM 3 is not required for object matching or 3D viewing.

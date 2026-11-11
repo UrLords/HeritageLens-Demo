@@ -1,4 +1,3 @@
-"""Compare image embeddings against the registered object references."""
 import numpy as np
 from backend import config
 
@@ -24,7 +23,6 @@ def load_reference_embeddings() -> dict:
 
 
 def score_objects(query: np.ndarray, refs: dict) -> dict:
-    """Best cosine similarity per object (vectors are already normalised)."""
     query = np.asarray(query).reshape(-1)
     for oid, matrix in refs.items():
         if matrix.ndim != 2 or matrix.shape[1] != query.shape[0]:
